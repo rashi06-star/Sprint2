@@ -16,6 +16,17 @@ This project is developed as part of the Prodesk-IT internship Sprint 2 assignme
 * Interactive website elements
 * Clean and user-friendly design
 
+## Screenshots
+
+### Desktop View
+
+![Desktop View](images/desktop.png)
+
+### Mobile View
+
+![Mobile View](images/mobile.png)
+
+
 ## Author
 
 Rashi Khandelwal
