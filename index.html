@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track your salary, expenses, and remaining balance.">
+  <title>Cash-Flow | Salary & Expense Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+    <a class="brand" href="#" aria-label="Cash-Flow home">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>Cash-Flow</span>
+    </a>
+    <span class="header-caption">Salary &amp; Expense Tracker</span>
+</header>
+
+<main class="container">
+    <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">PERSONAL FINANCE</p>
+        <h1 id="page-title">Your money, clearly.</h1>
+        <p>Keep track of your income, manage expenses, and understand your balance.</p>
+    </section>
+    
+    <section class="salary-panel panel" aria-labelledby="salary-heading">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">START HERE</p>
+                <h2 id="salary-heading">Set your salary</h2>
+            </div>
+        </div>
+        <form id="salary-form" novalidate>
+            <div class="field salary-field">
+                <label for="salary-input">Total salary (₹)</label>
+                <input id="salary-input" name="salary" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="e.g. 30000" aria-describedby="salary-error">
+                <small class="field-error" id="salary-error" aria-live="polite"></small>
+            </div>
+            <button class="button button-primary" type="submit">Save salary</button>
+        </form>
+        <p class="helper-text">You can update your salary at any time.</p>
+    </section>
+
+    <section class="summary-grid" aria-label="Financial summary" aria-live="polite">
+        <article class="summary-card">
+            <p>Total Salary</p>
+            <strong id="salary-total">₹0.00</strong>
+        </article>
+        <article class="summary-card">
+            <p>Total Expenses</p>
+            <strong id="expenses-total">₹0.00</strong>
+        </article>
+        <article class="summary-card summary-card-balance">
+            <p>Remaining Balance</p>
+            <strong id="remaining-balance">₹0.00</strong>
+            <span id="balance-status" class="balance-status">Set a salary to begin</span>
+        </article>
+    </section>
+    
+    <div id="alert-banner" class="alert-banner" role="alert" hidden>
+        Warning: Your remaining balance is below 10% of your salary.
+    </div>
+    
+    <div class="content-grid">
+        <section class="panel add-panel" aria-labelledby="add-heading">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">TRANSACTION</p>
+                    <h2 id="add-heading">Add an expense</h2>
+                </div>
+            </div>
+            <form id="expense-form" novalidate>
+                <div class="field">
+                    <label for="expense-name">Expense name</label>
+                    <input id="expense-name" name="expenseName" type="text" maxlength="100" autocomplete="off" placeholder="e.g. Groceries" aria-describedby="expense-name-error">
+                    <small class="field-error" id="expense-name-error" aria-live="polite"></small>
+                </div>
+                <div class="field">
+                    <label for="expense-amount">Amount (₹)</label>
+                    <input id="expense-amount" name="expenseAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="e.g. 1200" aria-describedby="expense-amount-error">
+                    <small class="field-error" id="expense-amount-error" aria-live="polite"></small>
+                </div>
+                <button class="button button-primary button-full" type="submit">Add expense</button>
+                <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+        
+        <section class="panel expenses-panel" aria-labelledby="expenses-heading">
+            <div class="section-heading section-heading-inline">
+                <div>
+                    <p class="eyebrow">ACTIVITY</p>
+                    <h2 id="expenses-heading">Expense history</h2>
+                </div>
+                <span id="expense-count" class="count-pill">0 items</span>
+            </div>
+            <ul id="expense-list" class="expense-list" aria-label="Expense list"></ul>
+            <p id="empty-state" class="empty-state">No expenses yet. Add your first expense to get started.</p>
+        </section>
+    </div>
+    
+    <section class="panel chart-panel" aria-labelledby="chart-heading">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">OVERVIEW</p>
+                <h2 id="chart-heading">Where your money stands</h2>
+            </div>
+        </div>
+        <div class="chart-wrap">
+            <canvas id="balance-chart" role="img" aria-label="Pie chart showing remaining balance compared with total expenses"></canvas>
+            <p id="chart-fallback" class="chart-fallback" hidden>Chart unavailable. Your totals above are still up to date.</p>
+        </div>
+        <div class="chart-legend" aria-label="Chart values">
+            <span><i class="legend-dot legend-balance" aria-hidden="true"></i>Remaining balance</span>
+            <span><i class="legend-dot legend-expenses" aria-hidden="true"></i>Total expenses</span>
+        </div>
+    </section>
+    
+    <section class="panel report-panel" aria-labelledby="report-heading">
+        <div>
+            <p class="eyebrow">YOUR RECORDS</p>
+            <h2 id="report-heading">Download your report</h2>
+            <p class="helper-text">Export your salary, expense list, and remaining balance as a PDF.</p>
+        </div>
+        <button id="download-report" class="button button-secondary" type="button">Download PDF report</button>
+        <p id="report-status" class="form-status" role="status" aria-live="polite"></p>
+    </section>
+    
+    <section class="panel currency-panel" aria-labelledby="currency-heading">
+        <div>
+            <p class="eyebrow">OPTIONAL TOOL</p>
+            <h2 id="currency-heading">Currency converter</h2>
+            <p class="helper-text">Convert the dashboard totals using the latest available reference rate. This does not change your saved INR records.</p>
+        </div>
+        <div class="currency-controls">
+            <div class="field">
+                <label for="currency-select">Display currency</label>
+                <select id="currency-select">
+                    <option value="INR">INR — Indian Rupee</option>
+                    <option value="USD">USD — US Dollar</option>
+                    <option value="EUR">EUR — Euro</option>
+                    <option value="GBP">GBP — British Pound</option>
+                </select>
+            </div>
+            <button id="convert-currency" class="button button-secondary" type="button">Update currency</button>
+        </div>
+        <p id="currency-status" class="form-status" role="status" aria-live="polite">Showing INR.</p>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>Cash-Flow · Your data stays in this browser.</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+<script src="script.js" defer></script>
+</body>
+</html>
